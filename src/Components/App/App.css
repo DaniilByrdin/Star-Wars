@@ -1,0 +1,36 @@
+.App {
+  background: -webkit-linear-gradient(45deg, rgb(38, 43, 42) 9%, rgb(0, 0, 0));
+  background: -moz-linear-gradient(45deg, rgb(38, 43, 42) 9%, rgb(0, 0, 0));
+  background: linear-gradient(45deg, rgb(38, 43, 42) 9%, rgb(0, 0, 0));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* min-width: 430px; */
+}
+.App_main {
+  background: -webkit-linear-gradient(45deg, rgb(29, 32, 31) 9%, rgba(12, 3, 28, .2));
+  background: -moz-linear-gradient(45deg, rgb(29, 32, 31) 9%, rgb(12, 3, 28, .2));
+  background: linear-gradient(45deg, rgb(29, 32, 31) 9%, rgb(12, 3, 28, .2));
+  border-radius: 25px;  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 85%;
+  margin-left: 5%;
+  color: white;
+  margin-bottom: 20px;
+}
+/* max-width: 585px */
+@media ( max-width: 750px ) {
+  .App {
+    font-size: 10px;
+    min-width: 330px;
+    min-height: 600px;
+  }
+  .App_main {
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

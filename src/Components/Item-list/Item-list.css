@@ -1,0 +1,20 @@
+.ItemList_container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 30px 0px;
+    
+}
+.ItemList_container span {
+    display: block;
+    border: 1px solid rgba(228, 209, 209, 0.3);
+    border-radius: 6px;
+    padding: 5px 15px;
+    width: 100%;
+}
+@media ( max-width: 585px ) {
+    .ItemList_container {
+        margin: 25px;
+        width: 100%;
+    }
+}

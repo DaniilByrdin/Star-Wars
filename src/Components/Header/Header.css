@@ -1,0 +1,27 @@
+.Header_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    color: white;
+    height: 55px;
+}
+.Header_container_item {
+    font-size: 22px;
+    font-weight: 700;
+}
+.Header_nav_group {
+    margin-right: auto;
+    margin-left: 55px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.Header_nav_group_item{
+    margin: auto 10px;
+    color: aqua;
+}
+
+@media ( max-width: 585px ) {
+
+}

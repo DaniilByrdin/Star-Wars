@@ -1,0 +1,51 @@
+.RandomPlanet_container {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    
+}
+.RandomPlanet_container img {
+    width: 120px;
+    height: 120px;
+    border-radius: 15px;
+    color: white;
+    margin: 10px 10px;
+}
+.RandomPlanet_container_item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px;
+    margin-right: auto;
+    color: white;
+}
+.RandomPlanet_container_name {
+    font-size: 18px;
+    font-weight: 600;
+}
+.RandomPlanet_container_item_title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 15px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+.RandomPlanet_container_item_title span {
+    display: inline-block;
+    padding: 2px 0px;
+    border-bottom: 1px solid rgba(228, 209, 209, 0.3);
+}
+
+@media ( max-width: 585px ) {
+    .RandomPlanet_container_name {
+        font-size: 14px;
+    }
+    .RandomPlanet_container_item_title span {
+        font-size: 12px;
+    }
+    .RandomPlanet_container img {
+        height: 100px;
+        width: 100px;
+    }
+}
