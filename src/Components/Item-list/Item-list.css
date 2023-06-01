@@ -11,6 +11,7 @@
     border-radius: 6px;
     padding: 5px 15px;
     width: 100%;
+    color: white;
 }
 @media ( max-width: 585px ) {
     .ItemList_container {

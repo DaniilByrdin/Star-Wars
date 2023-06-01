@@ -1,40 +1,30 @@
-import { React, Component } from "react";
-import './Item-list.css'
-import SwapiService from '../../API/Swapi-API'
+import { Component } from "react";
+import React from "react";
+
 import Spiner from '../Preloader/Spiner'
+import { HocHelperList } from '../hoc-helper/Hoc-helper'
+
+import './Item-list.css'
 
 class ItemList extends Component {
-    swapiService = new SwapiService()
 
-    state = {
-        peopleList: null
-    }
-
-    componentDidMount() {
-        this.swapiService.getAllPeople()
-        .then( res => {
-            this.setState( {
-                peopleList: res
-            } )
-        } )
-    }
-
-    renderlistPeople = () => {
-        const arrPeople = this.state.peopleList;
-        if (arrPeople) {
-            return arrPeople
-                .map(el => { return <span 
-                    to={ `/${el.id}` }
-                    key={el.id} 
-                    className="ItemList_container_"
-                    onClick={ () => this.props.choosePeople(el.id) }
-                    >{el.name}</span> })
+    renderlist = () => {
+            const data = this.props.data 
+            const { choose } = this.props
+            if ( data ) {
+                return data.map(el => { 
+                        return <span 
+                            key={el.id} 
+                            className="ItemList_container_"
+                            onClick={ () => choose(el.id) }
+                            >{el.name}
+                        </span> })
+            }
+            return <Spiner />
         }
-        return <Spiner />
-    }
 
     render() {
-        const people = this.renderlistPeople()
+        const people = this.renderlist()
 
         return (
             <div className="ItemList_container">
@@ -44,4 +34,4 @@ class ItemList extends Component {
     }
 }
 
-export default ItemList;
+export default HocHelperList( ItemList );

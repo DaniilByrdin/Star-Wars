@@ -1,8 +1,10 @@
 
-class SwapiService {
+export default class SwapiService {
     _baseUrl = 'https://swapi.dev/api';
-    async getResource(url) {
-        const res = await fetch(this._baseUrl + url, {
+    _baseIrlImage = 'https://starwars-visualguide.com/assets/img/'
+
+    async getResource(url, baseUrl) {
+        const res = await fetch( (baseUrl + url ), {
             "Content-Type": "aplication/json",
             "Access-Control-Allow-Origin": "http://localhost:3000/"
         })
@@ -11,29 +13,55 @@ class SwapiService {
             throw new Error('Ошибка сети' + `${res.status}`)
         }
 
+        if(baseUrl !== this._baseUrl) {
+            return res.json()
+        }
+
         return await res.json()
     }
-    async getAllPeople() {
-        const people = await this.getResource('/people/')
+
+    getAllPeople = async () => {
+        const people = await this.getResource('/people/', this._baseUrl)
         return people.results.map( this._transformPerson )
 
     }
-    async getPerson(id) {
-        const person = await this.getResource(`/people/${id}`)
-        return this._transformPerson(person)
-    }
-    async getAllStarship() {
-        const res = await this.getResource('/starships/')
+    getAllStarship = async () => {
+        const res = await this.getResource('/starships/', this._baseUrl)
         return res.results.map( this._transformStarship )
     }
-    async getStarship (id) {
-        const starship = await this.getResource(`starships/${id}`)
+    getAllPlanet = async () => {
+        const res = await this.getResource(`/planets`, this._baseUrl)
+        return res.results.map ( this._transformPlanet )
+    }
+
+
+    getPerson = async (id) => {
+        const person = await this.getResource(`/people/${id}`, this._baseUrl)
+        return this._transformPerson(person)
+    }
+    getStarship = async (id) => {
+        const starship = await this.getResource(`/starships/${id}`, this._baseUrl)
         return this._transformStarship(starship)
     }
-    async getPlanet(id) {
-        const planet = await this.getResource(`/planets/${id}`)
+    getPlanet = async (id) => {
+        const planet = await this.getResource(`/planets/${id}`, this._baseUrl)
         return this._transformPlanet(planet)
     }
+
+
+
+    getPersonImage = async (id) => {
+        const res = await this.getResource( `/characters/${id}.jpg` , this._baseIrlImage )
+    }
+    getPlanetImage = async (id) => {
+        const res = await this.getResource( `/planets/${id}.jpg` , this._baseIrlImage )
+    }
+    getStarshipImage = async (id) => {
+        if(!id) { return null }
+        const res = await this.getResource( `/starships/${id}.jpg` , this._baseIrlImage )
+        return res
+    }
+
 
     _extractID = (item) => {
         const idRegExp = /\/([0-9]*)\/$/;
@@ -55,11 +83,13 @@ class SwapiService {
             name: starship.name,
             model: starship.model,
             manufacturer: starship.manufacturer,
-            costInCredits: starship.costInCredits,
+            cost_in_credits: starship.costInCredits,
+            max_atmosphering_speed: starship.max_atmosphering_speed,
+            starship_class: starship.starship_class,
             length: starship.length,
             crew: starship.crew,
             passengers: starship.passengers,
-            cargoCapacity: starship.cargoCapacity
+            cargo_capacity: starship.cargoCapacity
         }
     }
     _transformPerson = (person) => {
@@ -67,10 +97,11 @@ class SwapiService {
             id: this._extractID(person),
             name: person.name,
             gender: person.gender,
-            birthYear: person.birthYear,
-            eyeColor: person.eyeColor, 
+            height: person.height,
+            mass: person.mass,
+            birthYear: person.birth_year,
+            eyeColor: person.eye_color,
         }
     }
 }
 
-export default SwapiService

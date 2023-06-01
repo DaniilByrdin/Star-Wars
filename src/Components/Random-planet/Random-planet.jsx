@@ -1,7 +1,10 @@
-import {React, Component} from "react";
-import './Random-planet.css'
+import {Component} from "react";
+import React from "react";
+
 import SwapiService from '../../API/Swapi-API'
-import Spiner from '../Preloader/Spiner' 
+import Spiner from '../Preloader/Spiner'
+
+import './Random-planet.css'
 
 
 class RandomPlanet extends Component {

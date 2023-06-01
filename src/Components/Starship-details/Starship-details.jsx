@@ -1,5 +1,5 @@
-import {React, Component} from "react";
-
+import {Component} from "react";
+import React from "react";
 
 class StarshipDetailsComponent extends Component {
     render() {
