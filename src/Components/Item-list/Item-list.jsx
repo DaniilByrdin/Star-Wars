@@ -1,27 +1,32 @@
 import { Component } from "react";
 import React from "react";
 
-import Spiner from '../Preloader/Spiner'
-import { HocHelperList } from '../hoc-helper/Hoc-helper'
+import { HocHelperList } from '../Hoc-helper/Hoc-helper'
 
 import './Item-list.css'
+import { Link } from "react-router-dom";
 
-class ItemList extends Component {
+
+class ItemList extends Component { 
 
     renderlist = () => {
-            const data = this.props.data 
-            const { choose } = this.props
-            if ( data ) {
-                return data.map(el => { 
-                        return <span 
-                            key={el.id} 
-                            className="ItemList_container_"
-                            onClick={ () => choose(el.id) }
-                            >{el.name}
-                        </span> })
-            }
-            return <Spiner />
-        }
+        const data = this.props.data
+        const { choose } = this.props
+
+        
+        if (data) {
+            const { type } = this.props
+
+            return data.map(el => {
+                return ( 
+                <Link   to={ `/${type}/${el.id}`} 
+                        key = { el.id } 
+                        className="ItemList_container_" 
+                        onClick={ () => choose(el.id)} > { el.name } 
+                </Link> )
+        }) 
+    }
+}
 
     render() {
         const people = this.renderlist()

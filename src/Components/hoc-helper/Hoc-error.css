@@ -1,0 +1,13 @@
+.Container_Error_Btn {
+    width: 70px;
+    height: 45px;
+    /* position: relative;
+    top: 130px; */
+    margin: auto 5px auto 5px;
+}
+.Container_data_main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}

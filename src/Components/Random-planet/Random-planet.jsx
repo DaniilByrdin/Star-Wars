@@ -3,6 +3,7 @@ import React from "react";
 
 import SwapiService from '../../API/Swapi-API'
 import Spiner from '../Preloader/Spiner'
+import ErrorComponent from '../ErrorComponent/ErrorComponent'
 
 import './Random-planet.css'
 
@@ -13,6 +14,10 @@ class RandomPlanet extends Component {
         planet: {},
         loading: true,
         error: false,
+    }
+
+    SetError = () => {
+        this.setState( { error: !this.state.error } )
     }
 
     componentDidMount() {
@@ -44,13 +49,14 @@ class RandomPlanet extends Component {
 
         const SpinerImg = loading ? <Spiner /> : null
         const PlanetComponent = hasData ? <Planet {...this.state.planet} /> : null
-        const ErrorMessageComponent = error ? <ErrorMessage /> : null
+        const ErrorMessageComponent = error ? <ErrorComponent /> : null
 
         return (
             <div className="RandomPlanet_container">
                 {SpinerImg}
                 {PlanetComponent}
                 {ErrorMessageComponent}
+                <button className="RandomPlanet_container_button" onClick={ () => this.SetError() }>SetError</button>
             </div>
         )
     }
@@ -69,13 +75,6 @@ const Planet = ( { id , name, population, rotationPeriod, diameter, } ) => {
                 </div>
             </div>
         </>
-    )
-}
-const ErrorMessage = () => {
-    return (
-        <div>
-            Errors Fetch
-        </div>
     )
 }
 

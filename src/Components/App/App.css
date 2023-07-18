@@ -14,17 +14,17 @@
   border-radius: 25px;  
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   width: 85%;
   margin-left: 5%;
   color: white;
   margin-bottom: 20px;
 }
 /* max-width: 585px */
-@media ( max-width: 750px ) {
+@media ( max-width: 585px ) {
   .App {
     font-size: 10px;
-    min-width: 330px;
+    min-width: 464px;
     min-height: 600px;
   }
   .App_main {
@@ -34,3 +34,4 @@
     align-items: center;
   }
 }
+

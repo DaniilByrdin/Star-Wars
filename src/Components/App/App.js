@@ -6,50 +6,12 @@ import SwapiService from  '../../API/Swapi-API.js'
 
 import Header from '../Header/Header'
 import RandomPlanet from '../Random-planet/Random-planet'
-import List from '../Item-list/Item-list.jsx'
-import Details from '../Person-details/Details.jsx'
 import ErrorComponent from '../ErrorComponent/ErrorComponent';
 
+import HocError from '../Hoc-helper/Hoc-error.js';
 
 import './App.css';
 
-
-// const People = ( 
-//   <div className='App_main'>
-//     <List choose={this.choosePeople} getData={this.swapiService.getAllPeople} />
-//     <Details
-//       getItem={this.swapiService.getPerson}
-//       itemID={this.state.personID}
-//       type={'characters'} />
-//   </div>
-// )
-
-
-// const Planet = ( 
-//   <div className='App_main'>
-//     <List
-//       choose={this.choosePlanet}
-//       getData={this.swapiService.getAllPlanet}
-//     />
-//     <Details
-//       getItem={this.swapiService.getPlanet}
-//       itemID={this.state.planetID}
-//       type={'planets'} />
-//   </div>
-// )
-
-// const Starship = (
-//   <div className='App_main'>
-//     <List
-//       choose={this.chooseStarship}
-//       getData={this.swapiService.getAllStarship}
-//     />
-//     <Details
-//       getItem={this.swapiService.getStarship}
-//       itemID={this.state.starshipID}
-//       type={'starships'} />
-//   </div>
-// )
 
 class App extends Component {
 
@@ -63,6 +25,10 @@ class App extends Component {
     selectItem: '',
   }
 
+  setError = () => {
+    this.setState( { error: !this.state.error } )
+  }
+
   choosePeople = (id) => {
     this.setState( { personID: id } )
   }
@@ -73,53 +39,60 @@ class App extends Component {
     this.setState( { starshipID: id } )
   }
 
-
   render() {
 
     if(this.state.error) {
-      return ( <ErrorComponent /> )
+      return ( 
+        <>
+          <ErrorComponent />
+          <button onClick={ this.setError }>SetError</button>
+        </>
+      )
+    }
+
+    const dataID = {
+      peopleID: this.state.personID,
+      planetID: this.state.planetID,
+      starshipID: this.state.starshipID,
     }
 
     return (
-        <div className="App">
-          <Header rerender = { this.rerender }/>
-          <RandomPlanet />
-          <Routes>
-            <Route path={'/'} element={<h1>Welcome this site!</h1>} />
-          <Route path={'/People'} element={<div className='App_main'>
-            <List choose={this.choosePeople} getData={this.swapiService.getAllPeople} />
-            <Details
-              getItem={this.swapiService.getPerson}
-              itemID={this.state.personID}
-              type={'characters'} />
-          </div>} />
-            <Route path={'/Planets'} element={ 
-            <div className='App_main'>
-              <List
+      <div className="App">
+        <Header rerender = { this.rerender } dataID = { dataID } setError={ this.setError }/>
+        <RandomPlanet />
+        <div className='App_main'>
+        <Routes>
+          <Route path={'/'} element={<h1>Welcome this site!</h1>} />
+          <Route path={'/characters/:ID?'} element={
+            <HocError
+                choose={this.choosePeople}
+                type={'characters'}
+                getData={this.swapiService.getAllPeople}
+                getItem={this.swapiService.getPerson}
+                itemID={this.state.personID}
+            />
+          } />
+          <Route path={'/planets/:ID?'} element={
+            <HocError
                 choose={this.choosePlanet}
+                type={'planets'}
                 getData={this.swapiService.getAllPlanet}
-              />
-              <Details
                 getItem={this.swapiService.getPlanet}
                 itemID={this.state.planetID}
-                type={'planets'} />
-            </div>
-            } />
-            <Route path={'/Starship'} element={ 
-            <div className='App_main'>
-              <List
+            />
+          } />
+          <Route path={'/starships/:ID?'} element={
+            <HocError
                 choose={this.chooseStarship}
+                type={'starships'}
                 getData={this.swapiService.getAllStarship}
-              />
-              <Details
                 getItem={this.swapiService.getStarship}
                 itemID={this.state.starshipID}
-                type={'starships'} />
-            </div>
-            } />
-          </Routes>
+            />
+          } />
+        </Routes>
         </div>
-      
+      </div>
     );
   }
 }
